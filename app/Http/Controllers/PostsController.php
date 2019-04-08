@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 use App\Http\Requests;
+use App\Http\Requests\CreatePostRequest;
 use App\Post;
 class PostsController extends Controller
 {
@@ -35,8 +37,9 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
+        $this->validate($request,['title'=>'required','body'=>'required']);
         $post = Post::create(['title'=>$request->title,'body'=>$request->body]);
         return redirect('/posts');
     }
