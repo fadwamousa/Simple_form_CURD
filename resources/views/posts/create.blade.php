@@ -2,10 +2,29 @@
 @section('title','FormPage')
 @section('content')
 <h2 style="color:red">Create Post Now</h2>
-<form method="post" action="{{url('/posts')}}">
+
+{!!Form::open(['method'=>'POST','action'=>'PostsController@store'])!!}
+
 	{{csrf_field()}}
-	<input type="text" name="title">
-	<TEXTAREA name="body"></TEXTAREA>
-	<input type="submit" name="submit">
-</form>
+
+	<div class="form-group">
+
+
+		{{Form::label("title","Title")}}
+		{{Form::text('title',null,['placeholder'=>'Title','class'=>'form-control'])}}
+
+
+	</div>
+
+	<div class="form-group">
+
+		{{Form::label("Content",null)}}
+
+		{{Form::textarea('body',null,['class'=>'form-control'])}}
+	</div>
+
+	{{Form::submit('Create',['class'=>'btn btn-primary'])}}
+
+
+{!!Form::close()!!}
 @endsection
